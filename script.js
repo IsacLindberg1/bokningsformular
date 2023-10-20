@@ -1,5 +1,4 @@
 let formElem;
-
 function init(){
     let i;
     
@@ -26,6 +25,10 @@ function init(){
     formElem.campaigncode.addEventListener("keyup", checkingPromotionCode);
 
     formElem.zipcode.addEventListener("blur", zipCode);
+
+    formElem.city.addEventListener("blur", makeCityUpperCase);
+
+    formElem.telephone.addEventListener("blur", phoneNumber);
 
 }
 
@@ -89,5 +92,18 @@ function zipCode(){
 }
 
 function makeCityUpperCase(){
-    
+    let input = document.getElementById("city").value;
+    let makeLettersUpperCase = input.toUpperCase();
+    formElem.city.value = makeLettersUpperCase;
+}
+
+function phoneNumber(){
+    let regexPhoneNumber = /^0\d{1,3}[-]?\d{5,8}$/;
+    let errorMessage = formElem.telephone.parentNode.parentNode.getElementsByTagName("span")[1];
+    console.log(regexPhoneNumber);
+    if(regexPhoneNumber.test(formElem.telephone.value) === false){
+        errorMessage.innerHTML = "Telefonnummer ska börja med 0 och sedan innehålla 6 till 11 siffror."
+    }else{
+        errorMessage.innerHTML = "";
+    }
 }
